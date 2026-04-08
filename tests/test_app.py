@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import runpy
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from voidcat.help import HELP_PAGES, help_overlay
 
@@ -36,6 +38,16 @@ class AppTests(unittest.TestCase):
         self.assertNotIn('voidcat-gfx = "voidcat.gfx_app:main"', raw)
         self.assertIn('dev = ["coverage', raw)
         self.assertFalse(Path("setup.py").exists())
+
+    def test_pyproject_declares_high_coverage_gate(self) -> None:
+        raw = Path("pyproject.toml").read_text()
+        self.assertIn("fail_under = 95", raw)
+
+    def test_module_main_dispatches_to_graphical_entrypoint(self) -> None:
+        with patch("voidcat.gfx_app.main") as main:
+            runpy.run_module("voidcat", run_name="__main__")
+
+        main.assert_called_once()
 
 
 if __name__ == "__main__":

@@ -138,7 +138,7 @@ The repository ships with:
 - `mypy` type checking
 - `coverage.py` reporting
 - `unittest` and property-style tests
-- an 80% coverage gate
+- a 95% coverage gate
 
 Useful local commands:
 
@@ -153,7 +153,7 @@ PYTHONPATH=src python3 -m coverage report
 Current local verification baseline:
 
 - 92 tests passing
-- 85% total coverage
+- 95% total coverage
 
 ## Project Structure
 
