@@ -1,45 +1,177 @@
 # VOIDCAT
 
+[![CI](https://github.com/canon-ball/voidcat/actions/workflows/ci.yml/badge.svg)](https://github.com/canon-ball/voidcat/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/canon-ball/voidcat/graph/badge.svg)](https://codecov.io/gh/canon-ball/voidcat)
+[![Python](https://img.shields.io/badge/python-3.10%2B-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-2ea44f.svg)](LICENSE)
+
 You are not the hero. You are the ship's last cat.
 
-`VOIDCAT` is a Python stealth roguelite built around a `pygame-ce` command-deck presentation.
-It keeps the shared turn-based stealth rules, but the flagship experience is now the graphical build: pixel-art sprites, enemy intent telegraphs, objective markers, floor conditions, daily seeds, and a full-screen codex.
+`VOIDCAT` is a graphical stealth roguelite built with Python and `pygame-ce`. You prowl a dying ship, restore relays, bait patrols with noise, and decide whether to cash out safely or push deeper into the dark for a better run.
 
-## Run
+It is designed around readable tactical stealth:
+
+- turn-based movement with fast runs and high tension
+- enemy intent telegraphs and a toggleable threat view
+- daily runs, seeded runs, and strong end-of-run summaries
+- deck conditions that change the feel of each floor
+- dock upgrades that push distinct Stealth, Mobility, and Scavenger routes
+- a full-screen codex that explains the systems without breaking the mood
+
+## Why It Stands Out
+
+- **Cat-first stealth fantasy**: this is not a soldier game, a dungeon crawler, or a combat roguelike. You are small, fast, disruptive, and always a little outmatched.
+- **Readable pressure**: patrol intent lines, map markers, threat zones, alert stages, and deck conditions tell you why a floor feels dangerous.
+- **Memorable runs**: daily seeds, build routes, deck histories, highlights, and share-ready end cards make runs feel like stories instead of score dumps.
+- **Short, sharp decisions**: hiss, hide, knock, pounce, wait, and route planning all matter. The game rewards information and timing over brute force.
+
+## Features
+
+- **Graphical command-deck presentation**
+  - pixel-art map rendering
+  - layered HUD with power, noise, alert, deck condition, and build route
+  - full-screen help/codex and score panels
+- **Stealth toolkit**
+  - `Hiss` to break close pressure
+  - `Hide` to cool noise and shake pursuit
+  - `Knock` to plant a decoy down a lane
+  - `Pounce` to burst across space or steal loot
+- **Run variety**
+  - `Training Deck`, `Low Light`, `Hot Deck`, and `Signal Surge` floors
+  - daily run mode and rerollable personal seeds
+  - distinct dock-offer archetypes: Stealth, Mobility, Scavenger
+- **Run summary and meta flavor**
+  - run highlights
+  - deck condition history
+  - build path summary
+  - share line on the end card
+
+## Gameplay Loop
+
+1. Enter the floor through the dock.
+2. Restore every relay.
+3. Return to the dock.
+4. Spend scrap on one dock offer if you want.
+5. Descend for another floor or extract safely.
+
+The deeper you go, the more the ship turns against you.
+
+## Install
+
+### Quick Run From A Checkout
+
+This is the most reliable path if you are playing straight from source:
 
 ```bash
-python3 -m pip install -e .
+git clone https://github.com/canon-ball/voidcat.git
+cd voidcat
+python3 -m pip install .
+python3 -m voidcat
+```
+
+### Editable Install For Development
+
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install -e '.[dev]'
 voidcat
+```
+
+If your local `pip` is older and editable install support is incomplete, this fallback still runs the game directly from source:
+
+```bash
+PYTHONPATH=src python3 -m voidcat
 ```
 
 ## Controls
 
-- `w a s d`: move
-- `e`: interact with relays, dock, and signals
-- `h`: hiss to scare adjacent crawlers and mimics
-- `x`: hide to suppress noise, lower alert, and shake distant stalkers
-- `k`: knock, then choose a direction to create a strong decoy
-- `p`: pounce, then choose a direction
-- `v`: toggle threat view to see projected pressure zones
-- `1 2 3`: buy a dock offer after extraction
-- `?`: open the in-game rules codex
-- `q`: quit
-- title screen: `d` starts the daily run, `r` rerolls the current seed
+| Key | Action |
+| --- | --- |
+| `W A S D` | Move |
+| `Space` | Wait and listen for a turn |
+| `E` | Interact with relay, dock, or signal |
+| `H` | Hiss to scare adjacent crawlers and mimics |
+| `X` | Hide to cool noise and reduce pressure |
+| `K` | Aim a knock and throw a decoy |
+| `P` | Aim a pounce and leap 1-2 tiles |
+| `V` | Toggle tactical threat view |
+| `1 2 3` | Buy one dock offer |
+| `?` | Open the codex |
+| `Q` | Quit |
+| Title: `D` | Start the daily run |
+| Title: `R` | Reroll a personal seed |
 
-## How To Play
+## Enemies
 
-- Restore every relay on the current floor.
-- Return to the dock once the relays are active.
-- Spend scrap on one dock upgrade if you want, then descend or end the run safely.
-- Keep an eye on power, noise, ship alert, floor condition, build path, and threat view. The current build teaches floor one more gently, then escalates through low-light decks, hot decks, and signal-surge decks.
-- `Knock` pulls enemies toward a decoy point deeper in the corridor.
-- `Hide` now lasts longer and is the main way to cool a bad stealth situation.
-- `D` on the title screen starts the shared daily run. `R` rerolls a personal seed until you like the route.
-- Dock offers now push clearer Stealth, Mobility, and Scavenger routes instead of feeling interchangeable.
-- `?` opens a full codex screen that explains the controls, run loop, stealth systems, and enemy behavior without the live map showing through.
+- **Crawler**: sound-hunter that commits hard to noise and decoys.
+- **Stalker**: line-of-sight predator that punishes open mistakes.
+- **Mimic**: fake loot until it springs.
 
-## Enemy Notes
+## Development
 
-- `Crawler`: rounded sound-hunter that commits hard to noise and decoys.
-- `Stalker`: sharper hunter that sees farther and escalates faster.
-- `Mimic`: a fake battery until it springs the trap.
+The repository ships with:
+
+- GitHub Actions CI
+- `ruff` linting
+- `mypy` type checking
+- `coverage.py` reporting
+- `unittest` and property-style tests
+- an 80% coverage gate
+
+Useful local commands:
+
+```bash
+PYTHONPATH=src python3 -m ruff check src tests
+PYTHONPATH=src python3 -m mypy src/voidcat
+PYTHONPATH=src python3 -m unittest discover -s tests -q
+PYTHONPATH=src python3 -m coverage run -m unittest discover -s tests -q
+PYTHONPATH=src python3 -m coverage report
+```
+
+Current local verification baseline:
+
+- 92 tests passing
+- 85% total coverage
+
+## Codecov
+
+Coverage is generated in CI and uploaded to Codecov from [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+
+To enable live Codecov reporting for the GitHub badge above:
+
+1. Connect `canon-ball/voidcat` to Codecov.
+2. Add `CODECOV_TOKEN` as a GitHub Actions repository secret.
+3. Push to `main` or open a pull request.
+
+The workflow already produces `coverage.xml` and uploads it when the token is available.
+
+## Project Structure
+
+```text
+src/voidcat/
+  engine.py        # game facade and shared state
+  gameplay.py      # turn logic and stealth rules
+  progression.py   # floor starts, dock offers, signal outcomes
+  presentation.py  # render-state assembly for the UI
+  gfx_app.py       # pygame frontend
+  models.py        # domain and render models
+
+tests/
+  test_engine.py
+  test_presentation.py
+  test_gfx_app.py
+  ...
+```
+
+## Roadmap Direction
+
+The current direction is to push `VOIDCAT` further into:
+
+- stronger run identity
+- clearer tactical readability
+- more memorable floor events
+- richer daily-run and community-sharing features
+
+## License
+
+MIT. See [LICENSE](LICENSE).
