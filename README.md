@@ -7,7 +7,7 @@
 
 You are not the hero. You are the ship's last cat.
 
-`VOIDCAT` is a graphical stealth roguelite built with Python and `pygame-ce`. You prowl a dying ship, restore relays, bait patrols with noise, and decide whether to cash out safely or push deeper into the dark for a better run.
+`VOIDCAT` is a graphical stealth roguelite built with Python and `pygame-ce`. It runs as a full GUI game window with pixel-art map rendering, a tactical HUD, codex panels, threat overlays, and animated feedback instead of a plain terminal display. You prowl a dying ship, restore relays, bait patrols with noise, and decide whether to cash out safely or push deeper into the dark for a better run.
 
 It is designed around readable tactical stealth:
 
@@ -68,6 +68,28 @@ cd voidcat
 python3 -m pip install .
 python3 -m voidcat
 ```
+
+### Launching The Graphical GUI
+
+The graphical build is the main version of the game.
+
+Use one of these launch methods:
+
+```bash
+voidcat
+```
+
+```bash
+python3 -m voidcat
+```
+
+If you have an older local install, you may also still have:
+
+```bash
+voidcat-gfx
+```
+
+`voidcat-gfx` launches the same graphical GUI, but `voidcat` is the current primary launcher in this repository.
 
 ### Editable Install For Development
 
@@ -132,18 +154,6 @@ Current local verification baseline:
 
 - 92 tests passing
 - 85% total coverage
-
-## Codecov
-
-Coverage is generated in CI and uploaded to Codecov from [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
-
-To enable live Codecov reporting for the GitHub badge above:
-
-1. Connect `canon-ball/voidcat` to Codecov.
-2. Add `CODECOV_TOKEN` as a GitHub Actions repository secret.
-3. Push to `main` or open a pull request.
-
-The workflow already produces `coverage.xml` and uploads it when the token is available.
 
 ## Project Structure
 
